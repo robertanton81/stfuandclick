@@ -1,0 +1,14 @@
+### List all teams
+GET http://localhost:3000/teams
+
+
+### Create a new team
+POST http://localhost:3000/teams
+content-type: application/json
+
+{
+  "name": "Avengers"
+}
+
+### Get a team
+GET http://localhost:3000/teams/6186605d233d1218c1db4c6

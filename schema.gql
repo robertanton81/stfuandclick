@@ -3,34 +3,33 @@
 # ------------------------------------------------------
 
 type Team {
-  """Team id"""
-  teamId: String
-
-  """Team name"""
-  teamName: String!
-
-  """Number of clicks for team"""
-  numberOfClicks: Int!
+  _id: String!
+  name: String!
+  clicks: Int
 }
 
 type Query {
-  teams: [Team!]!
-  team(id: Int!): Team!
+  team(_id: String!): Team!
+  teams(filters: ListTeamInput): [Team!]!
+}
+
+input ListTeamInput {
+  _id: String
+  name: String
 }
 
 type Mutation {
-  createTeam(createTeamInput: CreateTeamInput!): Team!
-  updateTeam(updateTeamInput: UpdateTeamInput!): Team!
-  removeTeam(id: Int!): Team!
+  createTeam(payload: CreateTeamInput!): Team!
+  updateTeam(payload: UpdateTeamInput!): Team!
+  deleteTeam(_id: String!): Team!
 }
 
 input CreateTeamInput {
-  """Team name"""
-  teamName: String!
+  name: String!
 }
 
 input UpdateTeamInput {
-  """Team name"""
-  teamName: String
-  id: Int!
+  _id: String!
+  name: String
+  clicks: Int
 }

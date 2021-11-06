@@ -1,21 +1,20 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { TeamsController } from './teams.controller';
-import { TeamsResolver } from './teams.resolver';
 import { TeamsService } from './teams.service';
 
-describe('TeamsService', () => {
-  let service: TeamsService;
+describe('TeamsController', () => {
+  let controller: TeamsController;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [TeamsService, TeamsResolver],
       controllers: [TeamsController],
+      providers: [TeamsService, { provide: TeamsService, useValue: {} }],
     }).compile();
 
-    service = module.get<TeamsService>(TeamsService);
+    controller = module.get<TeamsController>(TeamsController);
   });
 
   it('should be defined', () => {
-    expect(service).toBeDefined();
+    expect(controller).toBeDefined();
   });
 });
