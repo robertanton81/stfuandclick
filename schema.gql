@@ -1,0 +1,36 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Team {
+  """Team id"""
+  teamId: String
+
+  """Team name"""
+  teamName: String!
+
+  """Number of clicks for team"""
+  numberOfClicks: Int!
+}
+
+type Query {
+  teams: [Team!]!
+  team(id: Int!): Team!
+}
+
+type Mutation {
+  createTeam(createTeamInput: CreateTeamInput!): Team!
+  updateTeam(updateTeamInput: UpdateTeamInput!): Team!
+  removeTeam(id: Int!): Team!
+}
+
+input CreateTeamInput {
+  """Team name"""
+  teamName: String!
+}
+
+input UpdateTeamInput {
+  """Team name"""
+  teamName: String
+  id: Int!
+}
