@@ -4,7 +4,7 @@
         {
             "type": "node",
             "request": "attach",
-            "name": "Debug: nest js stfuandclick",
+            "name": "Attach: nest js stfuandclick",
             "remoteRoot": "/usr/src/app",
             "localRoot": "${workspaceFolder}",
             "protocol": "inspector",

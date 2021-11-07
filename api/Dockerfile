@@ -3,14 +3,17 @@
 ### DEV   ###
 FROM node:14.17.3 AS development
 
+ARG NODE_ENV=development
+ENV NODE_ENV=${NODE_ENV}
+
 #  Navigate to the container working directory 
 WORKDIR /usr/src/app
 #  Copy package.json
 COPY package*.json ./
 
-RUN npm install glob rimraf
+RUN npm install ## glob rimraf
 RUN npm install --only=development
-COPY . .
+# COPY . .
 RUN npm run build
 
 
@@ -28,9 +31,9 @@ RUN \
   npm config set registry https://registry.npm.taobao.org \
   && npm install --only=production
 
-COPY . .
-
-COPY --from=development /usr/src/app/dist ./dist
+ARG NODE_ENV=development
+ENV NODE_ENV=${NODE_ENV}
+COPY --from=development /usr/src/app/ .
 
 CMD ["node", "dist/main"]
  

@@ -1,11 +1,11 @@
 import { Test } from '@nestjs/testing';
 import { Connection } from 'mongoose';
-import { DatabaseService } from '../../database/database.service';
+import { DatabaseService } from '../src/database/database.service';
 import * as request from 'supertest';
-import { teamStub } from '../stubs/team.stub';
+import { teamStub } from '../src/teams/stubs/team.stub';
 
-import { AppModule } from '../../app.module';
-import { CreateTeamInput } from '../teams.inputs';
+import { AppModule } from '../src/app.module';
+import { CreateTeamInput } from '../src/teams/teams.inputs';
 
 jest.setTimeout(10000);
 

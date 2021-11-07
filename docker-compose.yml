@@ -4,9 +4,9 @@ services:
     container_name: server-dev
     image: server-dev:1.0.0
     build:
-      context: .
+      context: ./api
       target: development
-      dockerfile: ./Dockerfile
+      dockerfile: Dockerfile
     command: npm run start:debug
     ports:
       - 3000:3000
@@ -14,20 +14,20 @@ services:
     networks:
       - server-network
     volumes:
-      - .:/usr/src/app
-      - /usr/src/app/node_modules
+      - ./api:/usr/src/app
+      - /usr/src/app/node_modules/
     restart: unless-stopped
-    env_file: .env.dev
-    # environment:
-    #   MONGO_URL: mongodb
+    environment: 
+      MONGO_URL: mongodb
+
 
   prod:
     container_name: server-prod
     image: server-prod:1.0.0
     build:
-      context: .
+      context: ./api
       target: production
-      dockerfile: ./Dockerfile
+      dockerfile: Dockerfile
     command: npm run start:prod
     ports:
       - 3000:3000
@@ -35,16 +35,18 @@ services:
     networks:
       - server-network
     volumes:
-      - .:/usr/src/app
-      - /usr/src/app/node_modules
+      - ./api:/usr/src/app
+      - /usr/src/app/node_modules/
     env_file: .env.prod
     restart: unless-stopped
+
   mongodb:
-    image: mongo:5.0.0
+    image: mongo:latest
     container_name: server-mongodb
-    # environment:
-    #   - MONGO_INITDB_ROOT_USERNAME=root
-    #   - MONGO_INITDB_ROOT_PASSWORD=pass12345
+    environment:
+      - MONGO_INITDB_DATABASE=auth
+      # - MONGO_INITDB_ROOT_USERNAME=root
+      # - MONGO_INITDB_ROOT_PASSWORD=pass12345
     volumes:
       - mongodb-data:/data/db
     networks:
@@ -62,10 +64,10 @@ services:
     image: mongo-express
     container_name: server-mongo-express
     environment:
-      - ME_CONFIG_MONGODB_SERVER=mongodb
+      - ME_CONFIG_MONGODB_SERVER=server-mongodb
       - ME_CONFIG_MONGODB_ENABLE_ADMIN=true
-      - ME_CONFIG_MONGODB_ADMINUSERNAME=root
-      - ME_CONFIG_MONGODB_ADMINPASSWORD=pass12345
+      # - ME_CONFIG_MONGODB_ADMINUSERNAME=root
+      # - ME_CONFIG_MONGODB_ADMINPASSWORD=pass12345
       - ME_CONFIG_BASICAUTH_USERNAME=admin
       - ME_CONFIG_BASICAUTH_PASSWORD=admin123
     volumes:
@@ -82,6 +84,7 @@ services:
       timeout: 10s
       retries: 3
     restart: unless-stopped
+
 
 volumes:
   mongodb-data:
