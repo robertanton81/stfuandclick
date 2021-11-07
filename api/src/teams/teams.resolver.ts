@@ -1,7 +1,7 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Schema as MongooseSchema } from 'mongoose';
 
-import { Team } from './teams.model';
+import { Team } from './schemas/teams.model';
 import { TeamsService } from './teams.service';
 import {
   CreateTeamInput,

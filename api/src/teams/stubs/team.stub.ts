@@ -1,4 +1,4 @@
-import { Team } from '../teams.model';
+import { Team } from '../schemas/teams.model';
 import * as mongoose from 'mongoose';
 
 export const teamStub = (): Team => {

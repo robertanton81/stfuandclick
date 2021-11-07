@@ -18,7 +18,9 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "seed": "node dist/seeder",
+    "seed:refresh": "node dist/seeder --refresh"
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",
@@ -31,6 +33,7 @@
     "apollo-server-express": "^3.5.0",
     "class-transformer": "^0.4.0",
     "class-validator": "^0.13.1",
+    "faker": "^5.5.3",
     "graphql": "^15.7.2",
     "graphql-subscriptions": "^2.0.0",
     "mongoose": "^6.0.12",
