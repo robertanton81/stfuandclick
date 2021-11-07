@@ -1,10 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { TeamsResolver } from './teams.resolver';
-import { TeamsService } from './teams.service';
+import { TeamsResolver } from '../teams.resolver';
+import { TeamsService } from '../teams.service';
 
 describe('TeamsResolver', () => {
   let resolver: TeamsResolver;
-  const teamsService = jest.mock('./teams.service');
+  const teamsService = jest.mock('../teams.service');
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({

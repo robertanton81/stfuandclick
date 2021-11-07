@@ -1,11 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { teamStub } from './stubs/team.stub';
-import { TeamsController } from './teams.controller';
-import { CreateTeamInput } from './teams.inputs';
-import { Team } from './teams.model';
-import { TeamsService } from './teams.service';
+import { teamStub } from '../stubs/team.stub';
+import { TeamsController } from '../teams.controller';
+import { CreateTeamInput } from '../teams.inputs';
+import { Team } from '../teams.model';
+import { TeamsService } from '../teams.service';
 
-jest.mock('./teams.service');
+jest.mock('../teams.service');
 
 describe('TeamsController', () => {
   let controller: TeamsController;
