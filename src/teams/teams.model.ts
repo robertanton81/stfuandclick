@@ -5,8 +5,9 @@ import { Document, Schema as MongooseSchema } from 'mongoose';
 @ObjectType()
 @Schema()
 export class Team {
-  @Field(() => String)
-  _id: MongooseSchema.Types.ObjectId;
+  @Field(() => String, { nullable: true })
+  @Prop({ required: false })
+  id?: string;
 
   @Field(() => String, { nullable: false })
   @Prop()

@@ -1,4 +1,5 @@
-import { Controller, Get, Injectable } from '@nestjs/common';
+import { Body, Controller, Get, Injectable, Post } from '@nestjs/common';
+import { CreateTeamInput } from './teams.inputs';
 import { TeamsService } from './teams.service';
 
 @Controller('teams')
@@ -8,6 +9,11 @@ export class TeamsController {
 
   @Get()
   listAllTeams() {
-    return this.teamsService.list({ name: 'FantasticFour' });
+    return this.teamsService.list({});
+  }
+
+  @Post()
+  createTeam(@Body() createTeamInput: CreateTeamInput) {
+    return this.teamsService.create(createTeamInput);
   }
 }

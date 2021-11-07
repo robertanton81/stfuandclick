@@ -1,6 +1,6 @@
 import { teamStub } from '../stubs/team.stub';
 
-export const TeamService = jest.fn().mockReturnValue({
+export const TeamsService = jest.fn().mockReturnValue({
   //   getTeamById: jest.fn().mockResolvedValue(userStub()),
   //   getTeams: jest.fn().mockResolvedValue([userStub()]),
 

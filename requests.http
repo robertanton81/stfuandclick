@@ -7,7 +7,7 @@ POST http://localhost:3000/teams
 content-type: application/json
 
 {
-  "name": "Avengers"
+  "name": "Masters of the univers"
 }
 
 ### Get a team

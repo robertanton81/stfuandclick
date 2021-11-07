@@ -14,9 +14,7 @@ export class TeamsResolver {
   constructor(private teamService: TeamsService) {}
 
   @Query(() => Team)
-  async team(
-    @Args('_id', { type: () => String }) _id: MongooseSchema.Types.ObjectId,
-  ) {
+  async team(@Args('_id', { type: () => String }) _id: string) {
     return this.teamService.getById(_id);
   }
 
@@ -36,9 +34,7 @@ export class TeamsResolver {
   }
 
   @Mutation(() => Team)
-  async deleteTeam(
-    @Args('_id', { type: () => String }) _id: MongooseSchema.Types.ObjectId,
-  ) {
+  async deleteTeam(@Args('_id', { type: () => String }) _id: string) {
     return this.teamService.delete(_id);
   }
 }

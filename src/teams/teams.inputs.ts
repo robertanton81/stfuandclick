@@ -10,7 +10,7 @@ export class CreateTeamInput {
 @InputType()
 export class ListTeamInput {
   @Field(() => String, { nullable: true })
-  _id?: MongooseSchema.Types.ObjectId;
+  _id?: string;
 
   @Field(() => String, { nullable: true })
   name?: string;
@@ -19,7 +19,7 @@ export class ListTeamInput {
 @InputType()
 export class UpdateTeamInput {
   @Field(() => String)
-  _id: MongooseSchema.Types.ObjectId;
+  _id: string;
 
   @Field(() => String, { nullable: true })
   name?: string;

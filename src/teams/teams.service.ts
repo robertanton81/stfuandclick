@@ -15,26 +15,26 @@ export class TeamsService {
     @InjectModel(Team.name) private teamsModel: Model<TeamDocument>,
   ) {}
 
-  create(payload: CreateTeamInput) {
+  async create(payload: CreateTeamInput) {
     const createdTeam = new this.teamsModel(payload);
-    return createdTeam.save();
+    return await createdTeam.save();
   }
 
-  getById(_id: MongooseSchema.Types.ObjectId) {
-    return this.teamsModel.findById(_id).exec();
+  async getById(_id: string) {
+    return await this.teamsModel.findById(_id).exec();
   }
 
-  list(filters: ListTeamInput) {
-    return this.teamsModel.find({ ...filters }).exec();
+  async list(filters: ListTeamInput) {
+    return await this.teamsModel.find({ ...filters }).exec();
   }
 
-  update(payload: UpdateTeamInput) {
-    return this.teamsModel
+  async update(payload: UpdateTeamInput) {
+    return await this.teamsModel
       .findByIdAndUpdate(payload._id, payload, { new: true })
       .exec();
   }
 
-  delete(_id: MongooseSchema.Types.ObjectId) {
+  async delete(_id: string) {
     return this.teamsModel.findByIdAndDelete(_id).exec();
   }
 }
