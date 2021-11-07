@@ -16,9 +16,8 @@ import { DatabaseService } from './database.service';
           case 'test':
             URI = configService.get('MONGO_DEV_CONNECTION_URI');
             break;
-          case 'production':
+          default:
             URI = configService.get('MONGO_CONNECTION_URI');
-            break;
         }
         console.log(URI);
 
