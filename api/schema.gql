@@ -3,25 +3,26 @@
 # ------------------------------------------------------
 
 type Team {
-  id: String
+  _id: ID
   name: String!
   clicks: Int
+  order: Int
 }
 
 type Query {
-  team(_id: String!): Team!
+  team(id: String!): Team!
   teams(filters: ListTeamInput): [Team!]!
 }
 
 input ListTeamInput {
-  _id: String
+  id: String
   name: String
 }
 
 type Mutation {
   createTeam(payload: CreateTeamInput!): Team!
   updateTeam(payload: UpdateTeamInput!): Team!
-  deleteTeam(_id: String!): Team!
+  deleteTeam(id: String!): Team!
 }
 
 input CreateTeamInput {
@@ -29,7 +30,7 @@ input CreateTeamInput {
 }
 
 input UpdateTeamInput {
-  _id: String!
+  id: String!
   name: String
   clicks: Int
 }

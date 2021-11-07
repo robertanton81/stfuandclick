@@ -1,15 +1,33 @@
-import { Body, Controller, Get, Injectable, Post } from '@nestjs/common';
-import { CreateTeamInput } from './teams.inputs';
+import { Body, Controller, Get, Injectable, Post, Query } from '@nestjs/common';
+import { CreateTeamInput } from './dtos/teams.inputs';
 import { TeamsService } from './teams.service';
 
-@Controller('teams')
+@Controller()
 @Injectable()
 export class TeamsController {
   constructor(private readonly teamsService: TeamsService) {}
 
-  @Get()
+  /**
+   *
+   * @param id strign
+   * @returns Team
+   */
+  @Get('team')
+  getTeamById(@Query('id') id: string) {
+    return this.teamsService.getById(id);
+  }
+  /**
+   *
+   * @returns Team[]
+   */
+  @Get('teams')
   listAllTeams() {
     return this.teamsService.list({});
+  }
+
+  @Get('/leaderboard')
+  getLeaderboard() {
+    return this.teamsService.getLeaderboard();
   }
 
   @Post()

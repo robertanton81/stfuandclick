@@ -1,5 +1,6 @@
 import { Schema as MongooseSchema } from 'mongoose';
 import { Field, InputType, Int } from '@nestjs/graphql';
+import { IsNotEmpty } from 'class-validator';
 
 @InputType()
 export class CreateTeamInput {
@@ -10,7 +11,7 @@ export class CreateTeamInput {
 @InputType()
 export class ListTeamInput {
   @Field(() => String, { nullable: true })
-  _id?: string;
+  id?: string;
 
   @Field(() => String, { nullable: true })
   name?: string;
@@ -19,7 +20,8 @@ export class ListTeamInput {
 @InputType()
 export class UpdateTeamInput {
   @Field(() => String)
-  _id: string;
+  @IsNotEmpty()
+  id: string;
 
   @Field(() => String, { nullable: true })
   name?: string;

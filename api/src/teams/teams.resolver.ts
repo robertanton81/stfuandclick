@@ -7,15 +7,15 @@ import {
   CreateTeamInput,
   ListTeamInput,
   UpdateTeamInput,
-} from './teams.inputs';
+} from './dtos/teams.inputs';
 
 @Resolver(() => Team)
 export class TeamsResolver {
   constructor(private teamService: TeamsService) {}
 
   @Query(() => Team)
-  async team(@Args('_id', { type: () => String }) _id: string) {
-    return this.teamService.getById(_id);
+  async team(@Args('id', { type: () => String }) id: string) {
+    return this.teamService.getById(id);
   }
 
   @Query(() => [Team])
@@ -34,7 +34,7 @@ export class TeamsResolver {
   }
 
   @Mutation(() => Team)
-  async deleteTeam(@Args('_id', { type: () => String }) _id: string) {
-    return this.teamService.delete(_id);
+  async deleteTeam(@Args('id', { type: () => String }) id: string) {
+    return this.teamService.delete(id);
   }
 }

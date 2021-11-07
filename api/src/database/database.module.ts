@@ -26,7 +26,6 @@ import { DatabaseService } from './database.service';
           default:
             URI = configService.get('MONGO_CONNECTION_URI');
         }
-        console.log(URI);
 
         return {
           uri: URI,

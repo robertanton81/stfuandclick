@@ -5,7 +5,7 @@ import * as request from 'supertest';
 import { teamStub } from '../src/teams/stubs/team.stub';
 
 import { AppModule } from '../src/app.module';
-import { CreateTeamInput } from '../src/teams/teams.inputs';
+import { CreateTeamInput } from '../src/teams/dtos/teams.inputs';
 
 jest.setTimeout(10000);
 

@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { teamStub } from '../stubs/team.stub';
 import { TeamsController } from '../teams.controller';
-import { CreateTeamInput } from '../teams.inputs';
+import { CreateTeamInput } from '../dtos/teams.inputs';
 import { Team } from '../schemas/teams.model';
 import { TeamsService } from '../teams.service';
 
