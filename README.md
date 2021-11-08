@@ -11,6 +11,9 @@
 $ docker-compose up -d dev mongodb mongo-express
 ```
 
+## graphql playground
+{URL}/graphql
+
 ## documentation
 
 {URL}/api/api-docs
