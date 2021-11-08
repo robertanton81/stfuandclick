@@ -13,7 +13,12 @@ export class ClicksService {
     @InjectModel(Team.name) private teamsModel: Model<TeamDocument>,
   ) {}
 
-  async updateTeam(existingTeam) {
+  /**
+   * if tema was found by given id
+   * the click count is incremented by 1
+   * @param {Team} existingTeam
+   */
+  async _updateTeam(existingTeam) {
     if (!existingTeam) {
       throw new NotFoundException('team was not found');
     }
@@ -28,9 +33,12 @@ export class ClicksService {
       .exec();
   }
 
-  // this creates or updates click for given session and team _id
-  // it also updates team clicks
-  async create(createClickInput: CreateClickInput) {
+  /**
+   *
+   * @param {CreateClickInput} createClickInput
+   * @returns {Click} updated or create click
+   */
+  async createOrUpdate(createClickInput: CreateClickInput): Promise<Click> {
     const existingClick: Click = await this.find(createClickInput);
     const existingTeam: Team = await this.teamsModel
       .findById(createClickInput.teamId)
@@ -42,7 +50,7 @@ export class ClicksService {
         id: existingClick._id,
       };
 
-      this.updateTeam(existingTeam);
+      this._updateTeam(existingTeam);
 
       return await this.update(input);
     } else {
@@ -52,16 +60,26 @@ export class ClicksService {
         teamId: createClickInput.teamId,
       };
 
-      this.updateTeam(existingTeam);
+      this._updateTeam(existingTeam);
 
       return await this.clicksModel.create(newClick);
     }
   }
 
+  /**
+   * finc click based on session and teamId
+   * @param {CreateClickInput} filters
+   * @returns {Click}
+   */
   async find(filters: CreateClickInput) {
     return await this.clicksModel.findOne({ ...filters }).exec();
   }
 
+  /**
+   * updates a click, based on given teamId and session
+   * @param {UpdateClickInput} updateInput
+   * @returns {Click} updatedClick
+   */
   async update(updateInput: UpdateClickInput) {
     return await this.clicksModel.findByIdAndUpdate(
       updateInput.id,

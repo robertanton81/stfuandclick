@@ -1,10 +1,18 @@
 import { Body, Controller, Get, Injectable, Post, Query } from '@nestjs/common';
-import { ApiQuery } from '@nestjs/swagger';
+import {
+  ApiNotFoundResponse,
+  ApiOkResponse,
+  ApiOperation,
+  ApiTags,
+} from '@nestjs/swagger';
+import { Leaderboard } from './dtos/leaderboard.dto';
 import { CreateTeamInput } from './dtos/teams.inputs';
+import { Team } from './schemas/teams.model';
 import { TeamsService } from './teams.service';
 
 @Controller()
 @Injectable()
+@ApiTags('teams')
 export class TeamsController {
   constructor(private readonly teamsService: TeamsService) {}
 
@@ -14,26 +22,78 @@ export class TeamsController {
    * @returns Team
    */
   @Get('team')
-  getTeamById(@Query('id') param: string) {
-    return this.teamsService.getById(param);
+  @ApiOperation({ summary: 'get the team by id' })
+  @ApiOkResponse({ type: Team, description: 'get team gy id' })
+  @ApiNotFoundResponse({ description: 'No team was found for given id' })
+  async getTeamById(@Query('id') param: string): Promise<Team> {
+    return await this.teamsService.getById(param);
   }
   /**
    *
    * @returns Team[]
    */
   @Get('teams')
-  listAllTeams() {
-    return this.teamsService.list({});
+  @ApiOperation({ summary: 'get list of all teams' })
+  @ApiOkResponse({
+    type: [Team],
+    isArray: true,
+    schema: {
+      type: 'array',
+      example: [
+        {
+          _id: '6189352e52497c24980f071b',
+          clicks: 71,
+          name: 'Henri',
+        },
+        {
+          _id: '6189352e52497c24980f0719',
+          clicks: 12,
+          name: 'Delphia',
+        },
+      ],
+    },
+  })
+  async listAllTeams(): Promise<Team[]> {
+    return await this.teamsService.list({});
   }
 
+  /**
+   *
+   * @returns list of teams with their order
+   */
   @Get('/leaderboard')
-  getLeaderboard() {
-    return this.teamsService.getLeaderboard();
+  @ApiOperation({ summary: 'get leaderboard' })
+  @ApiOkResponse({
+    description: 'get teams and their rank',
+    schema: {
+      example: {
+        '1': [
+          {
+            _id: '61893491ed42f160a80822bb',
+            clicks: 79,
+            name: 'Emery',
+          },
+          {
+            _id: '61893491ed42f160a80822c0',
+            clicks: 79,
+            name: 'Sigurd',
+          },
+        ],
+      },
+    },
+  })
+  async getLeaderboard(): Promise<Leaderboard> {
+    return await this.teamsService.getLeaderboard();
   }
 
+  /**
+   * create new team with given name
+   * @param {CreateTeamInput} createTeamInput
+   * @returns
+   */
   @Post()
-  @ApiQuery({ name: 'create new team' })
-  createTeam(@Body() createTeamInput: CreateTeamInput) {
-    return this.teamsService.create(createTeamInput);
+  @ApiOperation({ summary: 'create team with given name' })
+  async createTeam(@Body() createTeamInput: CreateTeamInput): Promise<Team> {
+    return await this.teamsService.create(createTeamInput);
   }
 }

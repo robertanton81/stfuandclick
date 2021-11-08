@@ -22,15 +22,15 @@ export class ListTeamInput {
 export class UpdateTeamInput {
   @Field(() => String)
   @IsNotEmpty()
-  @ApiProperty()
+  // @ApiProperty()
   id: string;
 
   @Field(() => String, { nullable: true })
-  @ApiProperty()
+  // @ApiProperty()
   name?: string;
 
   @Field(() => Int, { nullable: true })
-  @ApiProperty()
+  // @ApiProperty()
   clicks?: number;
 }
 
@@ -38,6 +38,6 @@ export class UpdateTeamInput {
 export class GetTeamInput {
   @Field(() => String, { nullable: false })
   @IsNotEmpty()
-  @ApiProperty()
+  // @ApiProperty()
   id: string;
 }

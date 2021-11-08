@@ -28,7 +28,7 @@ async function bootstrap() {
     customSiteTitle: 'stfu API Docs',
   };
 
-  SwaggerModule.setup('api', app, document, customOptions);
+  SwaggerModule.setup('api-docs', app, document, customOptions);
 
   await app.listen(3000);
 }

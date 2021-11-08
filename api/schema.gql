@@ -6,7 +6,6 @@ type Team {
   _id: ID
   name: String!
   clicks: Int
-  order: Int
 }
 
 type Query {

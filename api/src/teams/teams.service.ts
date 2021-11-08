@@ -9,6 +9,7 @@ import {
   ListTeamInput,
   UpdateTeamInput,
 } from './dtos/teams.inputs';
+import { Leaderboard } from './dtos/leaderboard.dto';
 
 const teamProjection = {
   __v: false,
@@ -16,20 +17,37 @@ const teamProjection = {
 
 @Injectable()
 export class TeamsService implements OnModuleInit {
+  /**
+   *
+   * @param {TeamDocument} teamsModel
+   * @constructor
+   */
   constructor(
     @InjectModel(Team.name) private teamsModel: Model<TeamDocument>,
   ) {}
 
+  /**
+   * this is just arbitrary method to seed this sample app with
+   * some data on every start
+   */
   onModuleInit() {
     this.delteAll();
     this.createFake();
   }
 
-  async getLeaderboard() {
+  /**
+   * orders the teams into ordered dict, based on click count
+   * @returns {[key: int] : Team[]} ordered dict, base on highest clicks
+   */
+  async getLeaderboard(): Promise<Leaderboard> {
     const teams: Team[] = await this.list({});
 
+    // init the object
     const ordr: { [key: number]: string[] } = { 0: [] };
 
+    // fill the object with data
+    // key is the click count found during itteration
+    // value is the teamId
     for (let i = 0; i < teams.length; i++) {
       const team = new this.teamsModel(teams[i]);
 
@@ -40,10 +58,15 @@ export class TeamsService implements OnModuleInit {
       }
     }
 
+    // order the dict keys and start assigning the order
+    // starts at 1 and increments with each iteration
     let order = 1;
     const leaderboard = Object.keys(ordr);
+    // first sort the keys (number of clicks) of the ord object descending
     const sorted = leaderboard.sort((a, b) => parseInt(b) - parseInt(a));
-    const result = sorted.reduce((acc, curr) => {
+    // create new object with key as the order and value as array of the teams on
+    // given leaderboard rank
+    const result: Leaderboard = sorted.reduce((acc, curr) => {
       const res = ordr[curr].map((a) => teams.find((t) => t._id === a._id));
       if (res.length > 0) {
         acc[order] = res;
@@ -56,12 +79,22 @@ export class TeamsService implements OnModuleInit {
     return result;
   }
 
-  async create(payload: CreateTeamInput) {
+  /**
+   * create new team
+   * @param {CreateTeamInput} payload
+   * @returns {Team} team
+   */
+  async create(payload: CreateTeamInput): Promise<Team> {
     const createdTeam = new this.teamsModel(payload);
     return await createdTeam.save();
   }
 
-  async getById(id: string) {
+  /**
+   * find team by id
+   * @param {string} id
+   * @returns {Team}
+   */
+  async getById(id: string): Promise<Team> {
     if (!isValidObjectId(id)) {
       throw new NotFoundException('team was not found');
     }
@@ -74,25 +107,47 @@ export class TeamsService implements OnModuleInit {
     }
   }
 
-  async list(filters: ListTeamInput) {
+  /**
+   * get all teams, base on optional filter criteria
+   * @param {ListTeamInput} filters
+   * @returns {Team[]}
+   */
+  async list(filters: ListTeamInput): Promise<Team[]> {
     return await this.teamsModel.find({ ...filters }, teamProjection).exec();
   }
 
-  async update(payload: UpdateTeamInput) {
+  /**
+   * update team
+   * @param {UpdateTeamInput} payload
+   * @returns
+   */
+  async update(payload: UpdateTeamInput): Promise<Team> {
     return await this.teamsModel
       .findByIdAndUpdate(payload.id, payload, { new: true })
       .exec();
   }
 
-  async delete(id: string) {
+  /**
+   * delete team based on id
+   * @param {string} id
+   * @returns
+   */
+  async delete(id: string): Promise<Team> {
     return this.teamsModel.findByIdAndDelete(id).exec();
   }
 
+  /**
+   * remove all teams
+   * @returns
+   */
   async delteAll() {
     return this.teamsModel.deleteMany();
   }
 
-  async createFake() {
+  /**
+   * seed fake data into teams table
+   */
+  async createFake(): Promise<void> {
     [...Array(30).keys()].map(async () => {
       const fakeTeamName = faker.name.firstName();
       const fakeTeam: Team = {

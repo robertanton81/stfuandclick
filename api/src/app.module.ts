@@ -3,8 +3,6 @@ import { ConfigModule } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
 import { DatabaseModule } from './database/database.module';
 import { TeamsModule } from './teams/teams.module';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { ClicksModule } from './clicks/clicks.module';
 @Module({
   imports: [
@@ -21,7 +19,7 @@ import { ClicksModule } from './clicks/clicks.module';
     TeamsModule,
     ClicksModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}

@@ -1,5 +1,8 @@
 # stfuandclick API
 
+<p align="center"> this is a click game where you can give poinst for your team by clicks</p>
+</br>
+
 ## running the app in dockerfile
 
 - dev flag for development mode, prod for production
@@ -10,14 +13,15 @@ $ docker-compose up -d dev mongodb mongo-express
 
 ## documentation
 
-{URL}/api/#/default/
+{URL}/api/api-docs
 
 ## still work in progress.
 
 # TODO
 
 - implement remaining tests
-- missing endpoint and relation for click analysis
+- better error handling
+- ?missing endpoint and relation for click analysis
 - relation between click and team entity
 - improve documentation in swagger
 - create front end app

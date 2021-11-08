@@ -9,6 +9,6 @@ export class ClicksResolver {
 
   @Mutation(() => Click)
   createClick(@Args('createClickInput') createClickInput: CreateClickInput) {
-    return this.clicksService.create(createClickInput);
+    return this.clicksService.createOrUpdate(createClickInput);
   }
 }
