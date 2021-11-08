@@ -5,7 +5,7 @@ import { DatabaseModule } from './database/database.module';
 import { TeamsModule } from './teams/teams.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-
+import { ClicksModule } from './clicks/clicks.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -19,6 +19,7 @@ import { AppService } from './app.service';
     }),
     DatabaseModule,
     TeamsModule,
+    ClicksModule,
   ],
   controllers: [AppController],
   providers: [AppService],

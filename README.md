@@ -1,3 +1,30 @@
+# stfuandclick API
+
+## running the app in dockerfile
+
+- dev flag for development mode, prod for production
+
+```bash
+$ docker-compose up -d dev mongodb mongo-express
+```
+
+## documentation
+
+{URL}/api/#/default/
+
+## still work in progress.
+
+# TODO
+
+- implement remaining tests
+- missing endpoint and relation for click analysis
+- relation between click and team entity
+- improve documentation in swagger
+- create front end app
+- deploy
+
+# this api uses NestJs
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
 </p>

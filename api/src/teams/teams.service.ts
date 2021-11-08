@@ -19,6 +19,7 @@ export class TeamsService implements OnModuleInit {
   constructor(
     @InjectModel(Team.name) private teamsModel: Model<TeamDocument>,
   ) {}
+
   onModuleInit() {
     this.delteAll();
     this.createFake();
