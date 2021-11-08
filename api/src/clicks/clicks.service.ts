@@ -42,9 +42,7 @@ export class ClicksService {
         id: existingClick._id,
       };
 
-      if (existingTeam !== null) {
-        this.updateTeam(existingTeam);
-      }
+      this.updateTeam(existingTeam);
 
       return await this.update(input);
     } else {
@@ -54,9 +52,7 @@ export class ClicksService {
         teamId: createClickInput.teamId,
       };
 
-      if (existingTeam !== null) {
-        this.updateTeam(existingTeam);
-      }
+      this.updateTeam(existingTeam);
 
       return await this.clicksModel.create(newClick);
     }
