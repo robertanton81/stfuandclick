@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Injectable, Post, Query } from '@nestjs/common';
 import { ApiQuery } from '@nestjs/swagger';
-import { CreateTeamInput, GetTeamInput } from './dtos/teams.inputs';
+import { CreateTeamInput } from './dtos/teams.inputs';
 import { TeamsService } from './teams.service';
 
 @Controller()
@@ -14,8 +14,8 @@ export class TeamsController {
    * @returns Team
    */
   @Get('team')
-  getTeamById(@Query('id') param: GetTeamInput) {
-    return this.teamsService.getById(param.id);
+  getTeamById(@Query('id') param: string) {
+    return this.teamsService.getById(param);
   }
   /**
    *

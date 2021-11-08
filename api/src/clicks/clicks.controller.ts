@@ -8,7 +8,7 @@ export class ClicksController {
   constructor(private readonly clicksService: ClicksService) {}
 
   @Post()
-  createClick(@Body() createClickInput: CreateClickInput) {
-    return this.clicksService.create(createClickInput);
+  async createClick(@Body() createClickInput: CreateClickInput) {
+    return await this.clicksService.create(createClickInput);
   }
 }

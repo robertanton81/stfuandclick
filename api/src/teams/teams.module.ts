@@ -11,5 +11,6 @@ import { TeamsController } from './teams.controller';
   ],
   providers: [TeamsResolver, TeamsService],
   controllers: [TeamsController],
+  exports: [TeamsService],
 })
 export class TeamsModule {}
