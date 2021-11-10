@@ -30,6 +30,8 @@ async function bootstrap() {
 
   SwaggerModule.setup('api-docs', app, document, customOptions);
 
-  await app.listen(3000);
+  await app.listen(80).then(() => {
+    console.log(process.env.NODE_ENV);
+  });
 }
 bootstrap();

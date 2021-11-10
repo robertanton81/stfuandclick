@@ -1,37 +1,32 @@
 # Docker Multistage construction 
 
-### DEV   ###
-FROM node:14.17.3 AS development
+### BUILD   ###
+FROM node:14.17.3 AS build
 
-ARG NODE_ENV=development
-ENV NODE_ENV=${NODE_ENV}
 
 #  Navigate to the container working directory 
-WORKDIR /usr/src/app
+WORKDIR /app
 #  Copy package.json
 COPY package*.json ./
-
 RUN npm install ## glob rimraf
-RUN npm install --only=development
-# COPY . .
+COPY . .
+
+
+ARG NODE_ENV=production
+ENV NODE_ENV=${NODE_ENV}
 RUN npm run build
 
 
 ### PROD   ###
 FROM node:14.17.3 as production
 
-ARG NODE_ENV=production
-ENV NODE_ENV=${NODE_ENV}
+WORKDIR /app
 
-WORKDIR /usr/src/app
-
-COPY package*.json ./
+COPY package.json ./
 
 RUN npm install --only=production
 
-ARG NODE_ENV=development
-ENV NODE_ENV=${NODE_ENV}
-COPY --from=development /usr/src/app/ .
+COPY --from=build /app/dist ./dist
 
-CMD ["node", "dist/main"]
+CMD npm run start:prod
  
