@@ -36,22 +36,6 @@ export class TeamsController {
   @ApiOperation({ summary: 'get list of all teams' })
   @ApiOkResponse({
     type: [Team],
-    isArray: true,
-    schema: {
-      type: 'array',
-      example: [
-        {
-          _id: '6189352e52497c24980f071b',
-          clicks: 71,
-          name: 'Henri',
-        },
-        {
-          _id: '6189352e52497c24980f0719',
-          clicks: 12,
-          name: 'Delphia',
-        },
-      ],
-    },
   })
   async listAllTeams(): Promise<Team[]> {
     return await this.teamsService.list({});

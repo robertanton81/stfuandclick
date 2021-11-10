@@ -7,6 +7,8 @@ import {
 } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 
+const PORT = Number(process.env.PORT) || 8080;
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
@@ -30,7 +32,7 @@ async function bootstrap() {
 
   SwaggerModule.setup('api-docs', app, document, customOptions);
 
-  await app.listen(80).then(() => {
+  await app.listen(PORT).then(() => {
     console.log(process.env.NODE_ENV);
   });
 }

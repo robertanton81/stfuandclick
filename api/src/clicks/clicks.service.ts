@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { isValidObjectId, Model } from 'mongoose';
 import { CreateClickInput, UpdateClickInput } from './dtos/clicks.inputs';
 import { Click, ClickDocument } from './schemas/click.model';
 import { Team, TeamDocument } from '../teams/schemas/teams.model';
@@ -39,7 +39,17 @@ export class ClicksService {
    * @returns {Click} updated or create click
    */
   async createOrUpdate(createClickInput: CreateClickInput): Promise<Click> {
-    const existingClick: Click = await this.find(createClickInput);
+    if (!isValidObjectId(createClickInput.teamId)) {
+      throw new NotFoundException('team was not found');
+    }
+
+    const existingClick: Click = await this.clicksModel
+      .findOne({
+        teamId: createClickInput.teamId,
+        session: createClickInput.session,
+      })
+      .exec();
+
     const existingTeam: Team = await this.teamsModel
       .findById(createClickInput.teamId)
       .exec();
